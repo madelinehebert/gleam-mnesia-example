@@ -8,8 +8,14 @@ system_info() ->
     mnesia:system_info().
 
 install(Nodes) ->
+    % Stop Mnesia to install schema
+    application:stop(mnesia),
+
     % Install schema on all nodes
     _ = mnesia:create_schema(Nodes),
+
+    % Start Mnesia to create table
+    application:start(mnesia),
 
     % Make tables
     case mnesia:create_table(mail_tracker_items, [{attributes, record_info(fields, mail_tracker_items)}, {ram_copies, Nodes}]) of

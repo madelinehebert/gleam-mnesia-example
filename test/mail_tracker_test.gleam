@@ -1,6 +1,5 @@
 import gleam/erlang/node
 
-import gleam/io
 import gleeunit
 import gleeunit/should
 
